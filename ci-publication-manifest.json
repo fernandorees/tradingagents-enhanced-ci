@@ -1,0 +1,129 @@
+{
+  "schema_version": 1,
+  "scope": "isolated-synthetic-sec-subset",
+  "private_source_revision": "991b6d9addcfecc713ea592ef4834e2de97b55f6",
+  "private_source_visibility": "private",
+  "snapshot_approval": "approved-12-source-file-pilot-and-six-purpose-built-public-files",
+  "source_files": [
+    {
+      "path": "LICENSE",
+      "sha256": "c71d239df91726fc519c6eb72d318ec65820627232b2f796219e87dcf35d0ab4",
+      "size_bytes": 11357,
+      "origin": "byte-identical-private-source"
+    },
+    {
+      "path": "tradingagents/__init__.py",
+      "sha256": "88fff8048660d767919f7b1a9f246e7e3aa9378abd20fc2726cc424a30080bcd",
+      "size_bytes": 610,
+      "origin": "byte-identical-private-source"
+    },
+    {
+      "path": "tradingagents/dataflows/__init__.py",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "size_bytes": 0,
+      "origin": "byte-identical-private-source"
+    },
+    {
+      "path": "tradingagents/dataflows/vendors/__init__.py",
+      "sha256": "a867066a8b045938c175d598c2a5108275a8c825cc6d939d990aa9d053d79b8e",
+      "size_bytes": 84,
+      "origin": "byte-identical-private-source"
+    },
+    {
+      "path": "tradingagents/dataflows/vendors/sec_filing_discovery.py",
+      "sha256": "4b92808cb54b5b433854730763c5985e25eef9c500620dc7cb26435bac6d4e22",
+      "size_bytes": 9100,
+      "origin": "byte-identical-private-source"
+    },
+    {
+      "path": "tradingagents/dataflows/vendors/sec_xbrl_instance.py",
+      "sha256": "0c7edffd12ba5d6f011ef73eed58962d8fad037c485add6117036f9c513fae41",
+      "size_bytes": 12253,
+      "origin": "byte-identical-private-source"
+    },
+    {
+      "path": "tradingagents/dataflows/vendors/sec_filed_xbrl.py",
+      "sha256": "1687df8d1cbdcff7fbe3a8ac7c90f1cfcbf350f698d52161590ba276a9ba75d2",
+      "size_bytes": 4216,
+      "origin": "byte-identical-private-source"
+    },
+    {
+      "path": "tests/__init__.py",
+      "sha256": "01ba4719c80b6fe911b091a7c05124b64eeece964e09c058ef8f9805daca546b",
+      "size_bytes": 1,
+      "origin": "byte-identical-private-source"
+    },
+    {
+      "path": "tests/test_sec_filing_discovery.py",
+      "sha256": "86048daee9e3771f4b885de0dbd9e536160e6a4d0fde592c54b7ea9c98c93dc9",
+      "size_bytes": 7974,
+      "origin": "byte-identical-private-source"
+    },
+    {
+      "path": "tests/test_sec_acceptance_timestamp.py",
+      "sha256": "e2967fa856c192e0e5d9589142f214b450bf62a0cbd8098142bc170505ac037e",
+      "size_bytes": 1974,
+      "origin": "byte-identical-private-source"
+    },
+    {
+      "path": "tests/test_sec_xbrl_instance.py",
+      "sha256": "e18d627431747509918f8ac574362c3c80d286f2eb530a1761bca0e36cb8bdcf",
+      "size_bytes": 11863,
+      "origin": "byte-identical-private-source"
+    },
+    {
+      "path": "tests/test_sec_filed_xbrl.py",
+      "sha256": "741d5c1ff89c34032d2e904a313ecaa7d9872ef58df28c8a501bb090bc1032ec",
+      "size_bytes": 10779,
+      "origin": "byte-identical-private-source"
+    }
+  ],
+  "public_only_files": [
+    {
+      "path": ".github/workflows/ci.yml",
+      "sha256": "650fedd6d51207c5bb3ed23135194a02d4b8bfac6d78d805c3f6217d808fc316",
+      "size_bytes": 3130,
+      "origin": "public-ci-generated"
+    },
+    {
+      "path": ".gitignore",
+      "sha256": "a0e2dbc015b54379a2733684fdde28f33029d0acc932849975d2d64d170de366",
+      "size_bytes": 83,
+      "origin": "public-ci-generated"
+    },
+    {
+      "path": "README.md",
+      "sha256": "bd1fb33a16c33f8b674ab46ab31723d28628243c47d58c7e978497de4f79be74",
+      "size_bytes": 1658,
+      "origin": "public-ci-generated"
+    },
+    {
+      "path": "pyproject.toml",
+      "sha256": "a947e56ace94ee18126eeb8d127eaaed8dfe39e6bb0d30e6f8ba2b4c64b802b4",
+      "size_bytes": 308,
+      "origin": "public-ci-generated"
+    },
+    {
+      "path": "requirements-ci.txt",
+      "sha256": "db4096217aaf70c95ceee858a83cace00ddf1d60c122b44ebd97458af896ef52",
+      "size_bytes": 117,
+      "origin": "public-ci-generated"
+    }
+  ],
+  "publication_manifest_path": "ci-publication-manifest.json",
+  "test_files": [
+    "tests/test_sec_filing_discovery.py",
+    "tests/test_sec_acceptance_timestamp.py",
+    "tests/test_sec_xbrl_instance.py",
+    "tests/test_sec_filed_xbrl.py"
+  ],
+  "expected_nonzero_test_count": true,
+  "excluded_scope": [
+    "all other private source and tests",
+    "genuine SEC original file integrations",
+    "source-vintage and first-publication certification",
+    "model and trading workflows",
+    "full application/release verification"
+  ],
+  "notes": "This manifest is self-referential only by path, not by checksum. Its exact bytes are anchored by the public Git commit after publication. Do not infer complete private-project CI verification."
+}

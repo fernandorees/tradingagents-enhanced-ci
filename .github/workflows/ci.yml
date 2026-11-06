@@ -1,0 +1,86 @@
+name: Public SEC/XBRL subset CI
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+  workflow_dispatch:
+
+# Public source snapshot is unprivileged. NEVER grant private repository access.
+permissions:
+  contents: read
+
+concurrency:
+  group: public-sec-${{ github.workflow }}-${{ github.event.pull_request.number || github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  public-sec-tests:
+    name: ${{ matrix.os }} / Python ${{ matrix.python }}
+    runs-on: ${{ matrix.os }}
+    strategy:
+      fail-fast: false
+      matrix:
+        include:
+          - os: ubuntu-latest
+            python: "3.11"
+          - os: ubuntu-latest
+            python: "3.12"
+          - os: ubuntu-latest
+            python: "3.13"
+          - os: ubuntu-latest
+            python: "3.14"
+          - os: windows-latest
+            python: "3.12"
+    steps:
+      - name: Check out public snapshot only
+        uses: actions/checkout@v7
+        with:
+          persist-credentials: false
+      - name: Select Python runtime
+        uses: actions/setup-python@v7
+        with:
+          python-version: ${{ matrix.python }}
+      - name: Verify complete public-file allowlist and SHA-256
+        shell: bash
+        run: |
+          python - <<'PY'
+          from pathlib import Path
+          import hashlib
+          import json
+
+          manifest = json.loads(Path("ci-publication-manifest.json").read_text(encoding="utf-8"))
+          assert manifest["schema_version"] == 1
+          published = manifest["source_files"] + manifest["public_only_files"]
+          allowed = {record["path"] for record in published} | {"ci-publication-manifest.json"}
+          assert len(allowed) == len(published) + 1, "Duplicate allowlist path"
+          actual = {
+              p.as_posix()
+              for p in Path(".").rglob("*")
+              if p.is_file() and ".git" not in p.parts
+          }
+          assert actual == allowed, {
+              "unexpected": sorted(actual - allowed),
+              "missing": sorted(allowed - actual),
+          }
+          for record in published:
+              data = Path(record["path"]).read_bytes()
+              assert len(data) == record["size_bytes"], record["path"] + " size mismatch"
+              assert hashlib.sha256(data).hexdigest() == record["sha256"], (
+                  record["path"] + " SHA-256 mismatch"
+              )
+          assert manifest["scope"] == "isolated-synthetic-sec-subset"
+          print(f"PASS: {len(published)} approved source/configuration files; "
+                f"snapshot {manifest['private_source_revision']}")
+          PY
+      - name: Install pinned public CI dependencies
+        run: python -m pip install --disable-pip-version-check -r requirements-ci.txt
+      - name: Run all explicitly approved constructed-input SEC tests
+        run: >-
+          python -m pytest -q --strict-markers
+          tests/test_sec_filing_discovery.py
+          tests/test_sec_acceptance_timestamp.py
+          tests/test_sec_xbrl_instance.py
+          tests/test_sec_filed_xbrl.py
+      - name: Strict Ruff on published Python only
+        run: python -m ruff check tradingagents tests

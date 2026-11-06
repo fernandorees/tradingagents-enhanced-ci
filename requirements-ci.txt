@@ -1,0 +1,4 @@
+# Pinned public-only test dependencies; no trading or LLM providers.
+pytest==8.4.2
+python-dotenv==1.1.1
+ruff==0.16.6
