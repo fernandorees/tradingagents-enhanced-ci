@@ -81,8 +81,8 @@
   "public_only_files": [
     {
       "path": ".github/workflows/ci.yml",
-      "sha256": "650fedd6d51207c5bb3ed23135194a02d4b8bfac6d78d805c3f6217d808fc316",
-      "size_bytes": 3130,
+      "sha256": "9fbeffd118f1f08b1321b42d66ce2b40def1033c28e9119ac96ce63d7bd2168a",
+      "size_bytes": 3191,
       "origin": "public-ci-generated"
     },
     {
@@ -125,5 +125,5 @@
     "model and trading workflows",
     "full application/release verification"
   ],
-  "notes": "This manifest is self-referential only by path, not by checksum. Its exact bytes are anchored by the public Git commit after publication. Do not infer complete private-project CI verification."
+  "notes": "This manifest is self-referential only by path, not by checksum. Its exact bytes are anchored by the public Git commit after publication. Do not infer complete private-project CI verification. The workflow verifies committed Git blob contents, so Windows checkout CRLF conversion does not produce false SHA/size errors."
 }

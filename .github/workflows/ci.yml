@@ -48,6 +48,7 @@ jobs:
           from pathlib import Path
           import hashlib
           import json
+          import subprocess
 
           manifest = json.loads(Path("ci-publication-manifest.json").read_text(encoding="utf-8"))
           assert manifest["schema_version"] == 1
@@ -64,7 +65,7 @@ jobs:
               "missing": sorted(allowed - actual),
           }
           for record in published:
-              data = Path(record["path"]).read_bytes()
+              data = subprocess.check_output(["git", "show", "HEAD:" + record["path"]])
               assert len(data) == record["size_bytes"], record["path"] + " size mismatch"
               assert hashlib.sha256(data).hexdigest() == record["sha256"], (
                   record["path"] + " SHA-256 mismatch"
